@@ -27,7 +27,7 @@ resource "google_compute_firewall" "fw" {
 # Instance pour Wordpress
 resource "google_compute_instance" "wp" {  
   name         = "wordpress-m2i-tp1"  
-  machine_type = "f1-micro"  
+  machine_type = "e2-small"  
   zone         = "europe-west1-b"  
   boot_disk {    
     initialize_params {      
@@ -47,7 +47,7 @@ resource "google_compute_address" "ip_wordpress" {
 # Instance pour la base de données
 resource "google_compute_instance" "db" {  
   name         = "db-m2i-tp1"   
-  machine_type = "f1-micro"  
+  machine_type = "e2-small"  
   zone         = "europe-west1-b"  
   boot_disk {    
     initialize_params {      
