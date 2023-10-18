@@ -37,7 +37,7 @@ fi
 
 # Appliquer les playbooks Ansible
 ansible-playbook -i hosts wordpress.yml
-ansible-playbook -i hosts db.yml
+ansible-playbook -i hosts mariadb.yml
 
 # Vérifier le fonctionnement
 IP=$(terraform output wp_ip)

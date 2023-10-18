@@ -17,7 +17,7 @@ resource "google_compute_subnetwork" "subnet" {
 resource "google_compute_firewall" "fw" {
   name    = "m2i-tp1-firewall"
   network = google_compute_network.vpc_network.name
-
+  source_ranges = ["10.0.0.0/24"]
   allow {
     protocol = "tcp"
     ports    = ["80", "443"]
