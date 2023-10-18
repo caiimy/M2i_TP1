@@ -1,0 +1,17 @@
+- hosts: db
+  become: true
+
+  roles:
+    - role: geerlingguy.mysql
+      become: true
+      
+      mysql_root_password: rootpassword
+      mysql_users:
+        - name: wp_user
+          host: localhost
+          password: secretpassword
+          
+    - role: geerlingguy.mysql
+      become: true
+      mysql_databases:
+        - name: wp_db

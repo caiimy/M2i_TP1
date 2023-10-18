@@ -1,0 +1,19 @@
+- hosts: wordpress
+  become: true
+
+  roles:
+    - role: geerlingguy.php
+      become: true
+
+    - role: geerlingguy.apache
+      become: true
+
+    - role: geerlingguy.wordpress
+      become: true
+      
+      vars:
+        wordpress_version: latest
+        wordpress_create_database: true
+        wordpress_database_name: wp_db
+        wordpress_database_user: wp_user
+        wordpress_database_password: secretpassword
