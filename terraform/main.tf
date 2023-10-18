@@ -31,7 +31,7 @@ resource "google_compute_instance" "wp" {
   zone         = "europe-west1-b"  
   boot_disk {    
     initialize_params {      
-      image = "debian-cloud/debian-9"     
+      image = "debian-cloud/debian-10"     
     }  
   }  
   network_interface {    
@@ -51,7 +51,7 @@ resource "google_compute_instance" "db" {
   zone         = "europe-west1-b"  
   boot_disk {    
     initialize_params {      
-      image = "debian-cloud/debian-9"    
+      image = "debian-cloud/debian-10"    
     }  
   }  
   network_interface {    
