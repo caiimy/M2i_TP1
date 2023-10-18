@@ -1,6 +1,6 @@
 provider "google" {
   project     = "M2i-TP1"
-  region      = "us-central1"
+  region      = "europe-west1"
   credentials  = file("../credentials.json")
 }
 
