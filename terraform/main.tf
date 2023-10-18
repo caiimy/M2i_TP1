@@ -15,7 +15,7 @@ resource "google_compute_subnetwork" "subnet" {
 }
 
 resource "google_compute_firewall" "fw" {
-  name    = "M2i-TP1-firewall"
+  name    = "m2i-tp1-firewall"
   network = google_compute_network.vpc_network.name
 
   allow {
