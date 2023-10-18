@@ -11,6 +11,7 @@ fi
 # initialiser le dossier Terraform
 if ! [ -f .terraform ]; then
   echo "Initialisation du terraform ..."
+  cd /terraform
   terraform init
 fi
 
@@ -21,10 +22,11 @@ terraform apply
 # Vérifier si Ansible est installé
 if ! [ -x "$(command -v ansible)" ]; then
   echo "Installation Ansible..."
-  sudo apt install ansible -y 
+  sudo apt install ansible
 fi
 
 # Generer les fichiers hosts
+cd ../ansible
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
   echo "[wordpress]" > hosts
