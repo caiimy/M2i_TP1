@@ -35,6 +35,13 @@ if ! [ -f hosts ]; then
   echo "${terraform output db_ip} ansible_user=admin" >> hosts
 fi
 
+# Installer les roles geerlingguy avec ansible galaxy
+
+ansible-galaxy install geerlingguy.php
+ansible-galaxy install geerlingguy.apache
+ansible-galaxy install geerlingguy.wordpress
+ansible-galaxy install geerlingguy.mysql
+
 # Appliquer les playbooks Ansible
 ansible-playbook -i hosts wordpress.yml
 ansible-playbook -i hosts mariadb.yml
