@@ -1,5 +1,5 @@
 provider "google" {
-  project     = "foot2rue"
+  project     = "M2i-TP1"
   region      = "us-central1"
   credentials  = file("../credentials.json")
 }
@@ -15,7 +15,7 @@ resource "google_compute_subnetwork" "subnet" {
 }
 
 resource "google_compute_firewall" "fw" {
-  name    = "foot2rue-firewall"
+  name    = "M2i-TP1-firewall"
   network = google_compute_network.vpc_network.name
 
   allow {
@@ -26,7 +26,7 @@ resource "google_compute_firewall" "fw" {
 
 # Instance pour Wordpress
 resource "google_compute_instance" "wp" {  
-  name         = "wordpress-foot2rue"  
+  name         = "wordpress-M2i-TP1"  
   machine_type = "f1-micro"  
   zone         = "europe-west1-b"  
   boot_disk {    
@@ -46,7 +46,7 @@ resource "google_compute_address" "ip_wordpress" {
 
 # Instance pour la base de données
 resource "google_compute_instance" "db" {  
-  name         = "db-foot2rue"   
+  name         = "db-M2i-TP1"   
   machine_type = "f1-micro"  
   zone         = "europe-west1-b"  
   boot_disk {    
