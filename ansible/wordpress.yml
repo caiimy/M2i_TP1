@@ -1,6 +1,10 @@
-- hosts: wordpress
+- name: Wordpress config
+  hosts: wordpress
   become: true
 
+  collections:
+    - code_egg.openlitespeed_wordpress
+    
   roles:
     - role: geerlingguy.php
       become: true
