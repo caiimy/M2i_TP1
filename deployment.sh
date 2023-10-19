@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Variables
-IP=$(terraform.outputs.wp_ip)
-cle_ssh=$(cat ~/.ssh/id_rsa.pub)
+
 
 # Vérifier si Terraform est installé
 if ! [ -x "$(command -v terraform)" ]; then
@@ -23,11 +22,15 @@ fi
 echo "Application de la création terraform ..."
 terraform apply -auto-approve
 
+# Variable Ip wordpress
+IP=$(terraform.outputs.wp_ip)
+
 # creer la clé ssh
 if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "$USER"
 fi
 
+cle_ssh=$(cat ~/.ssh/id_rsa.pub)
 export VAR_SSHKEY="$cle_ssh"
 echo "$USER:$VAR_SSHKEY" > ssh_keys
 
