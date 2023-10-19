@@ -41,6 +41,7 @@ if ! [ -x "$(command -v ansible)" ]; then
 fi
 
 # Generer les fichiers hosts
+mkdir ../ansible/inventories
 cd ../ansible/inventories
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
@@ -59,8 +60,8 @@ ansible-galaxy collection install code_egg.openlitespeed_wordpress
 ansible-galaxy install geerlingguy.mysql
 
 # Appliquer les playbooks Ansible
-ansible-playbook -i inventories/hosts wordpress.yml
-ansible-playbook -i inventories/hosts mariadb.yml
+ansible-playbook -i inventories/hosts playbook/wordpress.yml
+ansible-playbook -i inventories/hosts playbook/mariadb.yml
 
 echo "Test apres"
 ansible all --list-hosts
