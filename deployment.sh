@@ -22,9 +22,6 @@ fi
 echo "Application de la création terraform ..."
 terraform apply -auto-approve
 
-# Variable Ip wordpress
-IP=${terraform.outputs.wp_ip}
-
 # creer la clé ssh
 if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "$USER"
@@ -45,11 +42,11 @@ cd ../ansible
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
   echo "[wordpress]" > hosts
-  echo "$IP" >> hosts
+  echo "$(terraform output wp_ip)" >> hosts
   echo "[wordpress:vars]" >> hosts
   echo ansible_user=admin >> hosts
   echo "[db]" >> hosts
-  echo "$(terraform.outputs.wp_ip)" >> hosts
+  echo "$(terraform output db_ip)" >> hosts
   echo "[db:vars]" >> hosts
   echo "ansible_user=admin" >> hosts
 fi
@@ -65,6 +62,7 @@ ansible-playbook -i hosts wordpress.yml
 ansible-playbook -i hosts mariadb.yml
 
 # Vérifier le fonctionnement
+IP=$(terraform output wp_ip)
 if curl -s "$IP" | grep "WordPress" > /dev/null; then
   echo "WordPress installé avec succes !"
 else
