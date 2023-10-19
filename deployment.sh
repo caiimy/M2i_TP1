@@ -41,7 +41,6 @@ if ! [ -x "$(command -v ansible)" ]; then
 fi
 
 # Generer les fichiers hosts
-mkdir ../ansible/inventories
 cd ../ansible/inventories
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
