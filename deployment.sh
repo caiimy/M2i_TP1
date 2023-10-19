@@ -32,7 +32,7 @@ fi
 
 cle_ssh=$(cat ~/.ssh/id_rsa.pub)
 export VAR_SSHKEY="$cle_ssh"
-echo "$USER:$VAR_SSHKEY" > ssh_keys
+echo "$VAR_SSHKEY" > ssh_keys
 
 # Vérifier si Ansible est installé
 if ! [ -x "$(command -v ansible)" ]; then
