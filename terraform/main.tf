@@ -40,7 +40,7 @@ resource "google_compute_instance" "wp" {
 }
 
 # Ip public wordpress
-resource "google_compute_address" "ip_wordpress" {
+resource "google_compute_address" "wp_ip" {
   name = "wordpress-ip"
 }
 
