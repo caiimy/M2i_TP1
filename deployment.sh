@@ -14,7 +14,7 @@ fi
 # initialiser le dossier Terraform
 if ! [ -f .terraform ]; then
   echo "Initialisation du terraform ..."
-  cd /terraform
+  cd ./terraform/
   terraform init
 fi
 
