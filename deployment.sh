@@ -17,7 +17,16 @@ fi
 
 # appliquer la creation
 echo "Application de la création terraform ..."
-terraform apply
+terraform apply -auto-approve
+
+# creer la clé ssh
+if [ ! -f ~/.ssh/id_rsa ]; then
+    ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "$USER"
+fi
+
+ssh_key=$(cat ~/.ssh/id_rsa.pub)
+export VAR_SSHKEY= "$ssh_key"
+echo "$USER:$VARIABLE_CONTENU" > ssh_keys
 
 # Vérifier si Ansible est installé
 if ! [ -x "$(command -v ansible)" ]; then
@@ -30,9 +39,13 @@ cd ../ansible
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
   echo "[wordpress]" > hosts
-  echo "${terraform.outputs.wp_ip} ansible_user=admin" >> hosts
+  echo "${terraform.outputs.wp_ip}" >> hosts
+  echo "[wordpress:vars]" >> hosts
+  echo ansible_user=admin >> hosts
   echo "[db]" >> hosts
-  echo "${terraform.outputs.db_ip} ansible_user=admin" >> hosts
+  echo "${terraform.outputs.db_ip}" >> hosts
+  echo "[db:vars]" >> hosts
+  echo "ansible_user=admin" >> hosts
 fi
 
 # Installer les roles geerlingguy avec ansible galaxy

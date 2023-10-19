@@ -8,7 +8,7 @@
     - role: geerlingguy.apache
       become: true
 
-    - role: /home/houss/.ansible/collections/ansible_collections/code_egg/openlitespeed_wordpress/roles/wordpress
+    - role: ~/.ansible/collections/ansible_collections/code_egg/openlitespeed_wordpress/roles/wordpress
       become: true
       
       vars:
