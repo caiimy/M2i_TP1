@@ -61,8 +61,8 @@ ansible-galaxy install geerlingguy.mysql
 echo "Test list host avant"
 ansible all --list-hosts
 
-ansible-playbook -i hosts wordpress.yml
-ansible-playbook -i hosts mariadb.yml
+ansible-playbook -i ./hosts wordpress.yml
+ansible-playbook -i ./hosts mariadb.yml
 
 echo "Test apres"
 ansible all --list-hosts
