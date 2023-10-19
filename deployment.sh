@@ -41,14 +41,11 @@ fi
 cd ../ansible
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
+  
   echo "[wordpress]" > hosts
-  echo "$(terraform output wp_ip)" >> hosts
-  echo "[wordpress:vars]" >> hosts
-  echo ansible_user=admin >> hosts
+  echo "$(terraform output wp_ip) ansible_user=admin" >> hosts
   echo "[db]" >> hosts
-  echo "$(terraform output db_ip)" >> hosts
-  echo "[db:vars]" >> hosts
-  echo "ansible_user=admin" >> hosts
+  echo "$(terraform output db_ip) ansible_user=admin" >> hosts
 fi
 
 # Installer les roles geerlingguy avec ansible galaxy
