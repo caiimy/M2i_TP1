@@ -1,4 +1,5 @@
-- hosts: db
+- name: database config
+  hosts: db
   become: true
 
   roles:
