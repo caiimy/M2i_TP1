@@ -8,7 +8,7 @@
     - role: geerlingguy.apache
       become: true
 
-    - role: geerlingguy.wordpress
+    - role: code_egg.openlitespeed_wordpress
       become: true
       
       vars:
