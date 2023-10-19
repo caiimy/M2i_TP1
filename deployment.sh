@@ -30,9 +30,9 @@ cd ../ansible
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
   echo "[wordpress]" > hosts
-  echo "${terraform.output.wp_ip} ansible_user=admin" >> hosts
+  echo "${terraform.outputs.wp_ip} ansible_user=admin" >> hosts
   echo "[db]" >> hosts
-  echo "${terraform.output.db_ip} ansible_user=admin" >> hosts
+  echo "${terraform.outputs.db_ip} ansible_user=admin" >> hosts
 fi
 
 # Installer les roles geerlingguy avec ansible galaxy
@@ -46,7 +46,7 @@ ansible-playbook -i hosts wordpress.yml
 ansible-playbook -i hosts mariadb.yml
 
 # Vérifier le fonctionnement
-IP=$(terraform.output.wp_ip)
+IP=$(terraform.outputs.wp_ip)
 if curl -s $IP | grep "WordPress" > /dev/null; then
   echo "WordPress installé avec succes !"
 else
