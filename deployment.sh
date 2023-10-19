@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Variables
+IP=$(terraform.outputs.wp_ip)
+cle_ssh=$(cat ~/.ssh/id_rsa.pub)
+
 # Vérifier si Terraform est installé
 if ! [ -x "$(command -v terraform)" ]; then
   echo "Installation Terraform..."
@@ -24,7 +28,6 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "$USER"
 fi
 
-cle_ssh=$(cat ~/.ssh/id_rsa.pub)
 export VAR_SSHKEY="$cle_ssh"
 echo "$USER:$VAR_SSHKEY" > ssh_keys
 
@@ -39,11 +42,11 @@ cd ../ansible
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
   echo "[wordpress]" > hosts
-  echo ${terraform.outputs.wp_ip} >> hosts
+  echo "$IP" >> hosts
   echo "[wordpress:vars]" >> hosts
   echo ansible_user=admin >> hosts
   echo "[db]" >> hosts
-  echo "${terraform.outputs.db_ip}" >> hosts
+  echo "$IP" >> hosts
   echo "[db:vars]" >> hosts
   echo "ansible_user=admin" >> hosts
 fi
@@ -59,7 +62,6 @@ ansible-playbook -i hosts wordpress.yml
 ansible-playbook -i hosts mariadb.yml
 
 # Vérifier le fonctionnement
-IP=$(terraform.outputs.wp_ip)
 if curl -s "$IP" | grep "WordPress" > /dev/null; then
   echo "WordPress installé avec succes !"
 else
