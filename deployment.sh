@@ -36,7 +36,6 @@ if ! [ -f hosts ]; then
 fi
 
 # Installer les roles geerlingguy avec ansible galaxy
-
 ansible-galaxy install geerlingguy.php
 ansible-galaxy install geerlingguy.apache
 ansible-galaxy collection install code_egg.openlitespeed_wordpress
