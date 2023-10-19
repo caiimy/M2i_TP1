@@ -23,7 +23,7 @@ echo "Application de la création terraform ..."
 terraform apply -auto-approve
 
 # Variable Ip wordpress
-IP=$(terraform.outputs.wp_ip)
+IP=${terraform.outputs.wp_ip}
 
 # creer la clé ssh
 if [ ! -f ~/.ssh/id_rsa ]; then
@@ -49,7 +49,7 @@ if ! [ -f hosts ]; then
   echo "[wordpress:vars]" >> hosts
   echo ansible_user=admin >> hosts
   echo "[db]" >> hosts
-  echo "$IP" >> hosts
+  echo "$(terraform.outputs.wp_ip)" >> hosts
   echo "[db:vars]" >> hosts
   echo "ansible_user=admin" >> hosts
 fi
