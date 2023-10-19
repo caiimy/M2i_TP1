@@ -39,7 +39,7 @@ cd ../ansible
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
   echo "[wordpress]" > hosts
-  echo "${terraform.outputs.wp_ip}" >> hosts
+  echo ${terraform.outputs.wp_ip} >> hosts
   echo "[wordpress:vars]" >> hosts
   echo ansible_user=admin >> hosts
   echo "[db]" >> hosts
@@ -60,7 +60,7 @@ ansible-playbook -i hosts mariadb.yml
 
 # Vérifier le fonctionnement
 IP=$(terraform.outputs.wp_ip)
-if curl -s $IP | grep "WordPress" > /dev/null; then
+if curl -s "$IP" | grep "WordPress" > /dev/null; then
   echo "WordPress installé avec succes !"
 else
   echo "WordPress non installé !"
