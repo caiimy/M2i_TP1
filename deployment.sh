@@ -39,7 +39,7 @@ fi
 
 ansible-galaxy install geerlingguy.php
 ansible-galaxy install geerlingguy.apache
-ansible-galaxy install geerlingguy.wordpress
+ansible-galaxy collection install code_egg.openlitespeed_wordpress
 ansible-galaxy install geerlingguy.mysql
 
 # Appliquer les playbooks Ansible
