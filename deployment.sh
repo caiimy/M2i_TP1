@@ -38,6 +38,8 @@ echo "$VAR_SSHKEY" > ssh_keys
 if ! [ -x "$(command -v ansible)" ]; then
   echo "Installation Ansible..."
   sudo apt install ansible
+else
+  echo "Ansible deja present"
 fi
 
 # Generer les fichiers hosts
@@ -45,7 +47,7 @@ cd ../ansible/inventories
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
 
-  echo "[wordpress]" > hosts
+  echo "[wordpress]" >> hosts
   echo $IP >> hosts
   echo "[db]" >> hosts
   echo $(terraform output db_ip) >> hosts
