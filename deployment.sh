@@ -37,7 +37,7 @@ echo "$VAR_SSHKEY" > ssh_keys
 # Vérifier si Ansible est installé
 if ! [ -x "$(command -v ansible)" ]; then
   echo "Installation Ansible..."
-  sudo apt install ansible
+  sudo apt update && sudo apt install ansible
 else
   echo "Ansible deja present"
 fi
