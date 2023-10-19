@@ -58,8 +58,14 @@ ansible-galaxy collection install code_egg.openlitespeed_wordpress
 ansible-galaxy install geerlingguy.mysql
 
 # Appliquer les playbooks Ansible
+echo "Test list host avant"
+ansible all --list-hosts
+
 ansible-playbook -i hosts wordpress.yml
 ansible-playbook -i hosts mariadb.yml
+
+echo "Test apres"
+ansible all --list-hosts
 
 # Vérifier le fonctionnement
 if curl -s "$IP" | grep "WordPress" > /dev/null; then
