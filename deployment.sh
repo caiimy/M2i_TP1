@@ -24,9 +24,9 @@ if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "$USER"
 fi
 
-ssh_key=$(cat ~/.ssh/id_rsa.pub)
-export VAR_SSHKEY= "$ssh_key"
-echo "$USER:$VARIABLE_CONTENU" > ssh_keys
+cle_ssh=$(cat ~/.ssh/id_rsa.pub)
+export VAR_SSHKEY="$cle_ssh"
+echo "$USER:$VAR_SSHKEY" > ssh_keys
 
 # Vérifier si Ansible est installé
 if ! [ -x "$(command -v ansible)" ]; then
