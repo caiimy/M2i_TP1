@@ -46,9 +46,9 @@ if ! [ -f hosts ]; then
   echo "Generer le fichier host"
 
   echo "[wordpress]" > hosts
-  echo "$IP ansible_user=admin ansible_ssh_private_key_file=../terraform/ssh_keys" >> hosts
+  echo "ansible_host: $IP" >> hosts
   echo "[db]" >> hosts
-  echo "$(terraform output db_ip) ansible_user=admin" >> hosts
+  echo "ansible_host: $(terraform output db_ip)" >> hosts
 fi
 
 # Installer les roles geerlingguy avec ansible galaxy
