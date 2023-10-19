@@ -41,7 +41,7 @@ if ! [ -x "$(command -v ansible)" ]; then
 fi
 
 # Generer les fichiers hosts
-cd ../ansible
+cd ../ansible/inventories
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
 
@@ -50,6 +50,7 @@ if ! [ -f hosts ]; then
   echo "[db]" >> hosts
   echo ansible_host: $(terraform output db_ip) >> hosts
 fi
+cd ..
 
 # Installer les roles geerlingguy avec ansible galaxy
 ansible-galaxy install geerlingguy.php
@@ -58,12 +59,8 @@ ansible-galaxy collection install code_egg.openlitespeed_wordpress
 ansible-galaxy install geerlingguy.mysql
 
 # Appliquer les playbooks Ansible
-echo "Test list host avant"
-ansible all --list-hosts
-
-echo "$pwd"
-ansible-playbook -i ./hosts wordpress.yml
-ansible-playbook -i ./hosts mariadb.yml
+ansible-playbook -i inventories/hosts wordpress.yml
+ansible-playbook -i inventories/hosts mariadb.yml
 
 echo "Test apres"
 ansible all --list-hosts
