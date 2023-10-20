@@ -63,6 +63,7 @@ resource "google_compute_instance" "db" {
     network = google_compute_network.vpc_network.self_link
     subnetwork = google_compute_subnetwork.subnet.self_link 
     access_config {
+      nat_ip = google_compute_address.static.address
     }
   }
 }
