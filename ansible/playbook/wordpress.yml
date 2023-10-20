@@ -13,7 +13,7 @@
       become: true
       
       vars:
-        ansible_ssh_private_key_file: ~/.ssh/id_rsa
+        ansible_ssh_private_key_file: '~/.ssh/id_rsa'
         wordpress_version: latest
         wordpress_create_database: true
         wordpress_database_name: wp_db
