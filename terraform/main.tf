@@ -15,6 +15,7 @@ resource "google_compute_subnetwork" "subnet" {
 }
 
 resource "google_compute_firewall" "fw" {
+  project     = "future-oasis-399813"
   name    = "m2i-tp1-firewall"
   network = google_compute_network.vpc_network.self_link
   source_ranges = ["0.0.0.0/24"]
