@@ -1,7 +1,7 @@
 ---
     - name: "installing apache"
       apt:
-        name: httpd
+        name: apache2
         state: present
       tags:
         - lamp
