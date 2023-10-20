@@ -7,8 +7,10 @@
         - lamp
 
     - name: "installing php"
-        ansible.builtin.include_role:
-          name: geerlingguy.php
+      apt:
+        name: php7.4
+      tags:
+        -lamp
 
     - name: "copying httpd.config"
       template:
