@@ -28,7 +28,8 @@ resource "google_compute_firewall" "fw" {
 resource "google_compute_instance" "wp" {  
   name         = "wordpress-m2i-tp1"  
   machine_type = "e2-small"  
-  zone         = "europe-west1-b"  
+  zone         = "europe-west1-b"
+  tags         = ["wp]
   boot_disk {    
     initialize_params {      
       image = "debian-cloud/debian-10"     
@@ -37,6 +38,8 @@ resource "google_compute_instance" "wp" {
   network_interface {    
     network = google_compute_network.vpc_network.self_link
     subnetwork = google_compute_subnetwork.subnet.self_link 
+  }
+  access_config {
   }
 }
 
@@ -50,6 +53,7 @@ resource "google_compute_instance" "db" {
   name         = "db-m2i-tp1"   
   machine_type = "e2-small"  
   zone         = "europe-west1-b"  
+  tags         = ["db"]
   boot_disk {    
     initialize_params {      
       image = "debian-cloud/debian-10"    
@@ -58,5 +62,7 @@ resource "google_compute_instance" "db" {
   network_interface {    
     network = google_compute_network.vpc_network.self_link
     subnetwork = google_compute_subnetwork.subnet.self_link 
+  }
+  access_config {
   }
 }
