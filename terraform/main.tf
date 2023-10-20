@@ -29,7 +29,7 @@ resource "google_compute_instance" "wp" {
   name         = "wordpress-m2i-tp1"  
   machine_type = "e2-small"  
   zone         = "europe-west1-b"
-  tags         = ["wp]
+  tags         = ["wp"]
   boot_disk {    
     initialize_params {      
       image = "debian-cloud/debian-10"     
