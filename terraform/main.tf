@@ -4,6 +4,9 @@ provider "google" {
   credentials  = file("../credentials.json")
 }
 
+data "google_client_openid_userinfo" "me" {
+}
+
 resource "google_compute_network" "vpc_network" {
   name = "vpc-network"
 }
@@ -49,7 +52,7 @@ resource "google_compute_instance" "wp" {
     }
   }
   metadata = {
-    ssh-keys = "${google_service_account.service_account.email}:file(~/.ssh/id_rsa.pub)"
+    ssh-keys = "${split("@", data.google_client_openid_userinfo.me.email)[0]}:file(~/.ssh/id_rsa.pub)"
   }
 
   service_account {    
@@ -83,7 +86,7 @@ resource "google_compute_instance" "db" {
     }
   }
   metadata = {
-    ssh-keys = "${google_service_account.service_account.email}:file(~/.ssh/id_rsa.pub)"
+    ssh-keys = "${split("@", data.google_client_openid_userinfo.me.email)[0]}:file(~/.ssh/id_rsa.pub)"
   }
 
   service_account {    
