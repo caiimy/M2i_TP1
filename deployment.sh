@@ -1,10 +1,12 @@
 #!/bin/bash
-
+echo "Je suis la !!!!!!"
 # creer la clé ssh
 if [ -f ~/.ssh/id_rsa ]; then
   rm ~/.ssh/id_rsa
   rm ~/.ssh/id_rsa.pub
+  echo "clé supprimée"
 fi
+echo "Création de la nouvelle clé"
 ssh-keygen -t rsa -f ~/.ssh/id_rsa
 
 
