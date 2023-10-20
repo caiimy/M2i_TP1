@@ -41,6 +41,10 @@ else
 fi
 
 # Generer les fichiers hosts
+if ! [ -d inventories ];then
+  mkdir ../ansible/inventories/
+fi
+
 cd ../ansible/inventories
 if ! [ -f hosts ]; then
   echo "Generer le fichier host"
@@ -61,9 +65,6 @@ ansible-galaxy install geerlingguy.mysql
 # Appliquer les playbooks Ansible
 ansible-playbook -i inventories/hosts playbook/wordpress.yml
 ansible-playbook -i inventories/hosts playbook/mariadb.yml
-
-echo "Test apres"
-ansible all --list-hosts
 
 # Vérifier le fonctionnement
 if curl -s "$IP_WP_EXT" | grep "WordPress" > /dev/null; then
