@@ -46,9 +46,9 @@ if ! [ -f hosts ]; then
   echo "Generer le fichier host"
 
   echo "[wordpress]" >> hosts
-  echo $IP_WP ansible_user=m2i_tp1 >> hosts
+  echo $IP_WP ansible_user=m2i_tp1 ansible_ssh_private_key_file=~/.ssh/id_rsa >> hosts
   echo "[db]" >> hosts
-  echo $IP_DB ansible_user=m2i_tp1 >> hosts
+  echo $IP_DB ansible_user=m2i_tp1 ansible_ssh_private_key_file=~/.ssh/id_rsa >> hosts
 fi
 cd ..
 
