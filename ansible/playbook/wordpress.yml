@@ -3,4 +3,4 @@
   become: true
 
   roles:
-    - ~/workplace/M2i-TP1/ansible/roles/wordpress
+    - ~/workplace/M2i-TP1/ansible/roles/tasks_wordpress
