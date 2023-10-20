@@ -1,16 +1,14 @@
 ---
-    - name: "installing apache"
+    - name: "installing apache && php"
       apt:
-        name: apache2
+        name: 
+          - apache2
+          - php
+          - libapache2-mod-php
+          - php-mysqli
         state: present
       tags:
         - lamp
-
-    - name: "installing php"
-      apt:
-        name: php7.4
-      tags:
-        -lamp
 
     - name: "copying httpd.config"
       template:
