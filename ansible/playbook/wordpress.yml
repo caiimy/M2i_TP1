@@ -7,9 +7,7 @@
         - lamp
 
     - name: "installing php"
-      apt:
-        name: php7.4
-        state: present
+      shell: apt install php libapache2-mod-php -y
       tags:
         - lamp
 
