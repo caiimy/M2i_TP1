@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Variables
-
+# creer la clé ssh
+if [ ! -f ~/.ssh/id_rsa ]; then
+    ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+fi
 
 # Vérifier si Terraform est installé
 if ! [ -x "$(command -v terraform)" ]; then
@@ -26,15 +28,6 @@ terraform apply -auto-approve
 IP_WP=$(terraform output wp_extern_ip)
 IP_DB=$(terraform output db_extern_ip)
 IP_WP_EXT=$(terraform output wp_ip)
-
-# creer la clé ssh
-if [ ! -f ~/.ssh/id_rsa ]; then
-    ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "$USER"
-fi
-
-cle_ssh=$(cat ~/.ssh/id_rsa.pub)
-export VAR_SSHKEY="$cle_ssh"
-echo "$USER:$VAR_SSHKEY" > ssh_keys
 
 # Vérifier si Ansible est installé
 if ! [ -x "$(command -v ansible)" ]; then

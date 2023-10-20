@@ -25,6 +25,11 @@ resource "google_compute_firewall" "fw" {
   }
 }
 
+resource "google_service_account" "service_account" {
+  account_id   = "service-account-id"
+  display_name = "Service Account"
+}
+
 # Instance pour Wordpress
 resource "google_compute_instance" "wp" {  
   name         = "wordpress-m2i-tp1"  
@@ -41,6 +46,15 @@ resource "google_compute_instance" "wp" {
     subnetwork = google_compute_subnetwork.subnet.self_link 
     access_config {
     }
+  }
+  metadata = {
+    ssh-keys = "${google_service_account.service_account.email}:${file(~/.ssh/id_rsa.pub)}"
+  }
+
+  service_account {    
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.    
+    email  = google_service_account.service_account.email
+    scopes = ["cloud-platform"]  
   }
 }
 
@@ -65,5 +79,8 @@ resource "google_compute_instance" "db" {
     subnetwork = google_compute_subnetwork.subnet.self_link 
     access_config {
     }
+  }
+    metadata = {
+    ssh-keys = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key_file)}"
   }
 }
