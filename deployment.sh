@@ -50,7 +50,7 @@ if ! [ -f hosts ]; then
   echo "[wordpress]" >> hosts
   echo $IP ansible_port=22 ansible_user=admin >> hosts
   echo "[db]" >> hosts
-  echo $(terraform output db_intern_ip) >> hosts
+  echo $(terraform output db_intern_ip) ansible_port=22 ansible_user=admin >> hosts
 fi
 cd ..
 
