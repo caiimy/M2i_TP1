@@ -64,7 +64,7 @@ ansible-galaxy install geerlingguy.apache
 ansible-galaxy install geerlingguy.mysql
 
 # Appliquer les playbooks Ansible
-ansible-playbook -i inventories/hosts playbook/wordpress.yml
+ansible-playbook -i inventories/hosts playbook/main.yml
 ansible-playbook -i inventories/hosts playbook/mariadb.yml
 
 # Vérifier le fonctionnement

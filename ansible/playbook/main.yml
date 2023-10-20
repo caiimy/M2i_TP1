@@ -1,0 +1,10 @@
+---
+
+- name: "wordpress installation"
+  become: yes
+  gather_facts: true
+  hosts: wordpress
+
+  tasks:
+
+    - include_tasks: "wordpress.yml"
