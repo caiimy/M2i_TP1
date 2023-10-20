@@ -5,7 +5,7 @@ if [-f ~/.ssh/id_rsa ]; then
   rm ~/.ssh/id_rsa
   rm ~/.ssh/id_rsa.pub
 fi
-ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C m2i-tp1
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 
 # Vérifier si Terraform est installé
