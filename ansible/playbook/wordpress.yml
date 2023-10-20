@@ -82,7 +82,7 @@
         password: ""
         host_all: true
         state: absent
-         tags:
+      tags:
        - wordpress
        - lamp
        - mariadb
