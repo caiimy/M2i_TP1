@@ -1,9 +1,12 @@
 #!/bin/bash
 
 # creer la clé ssh
-if [ ! -f ~/.ssh/id_rsa ]; then
-    ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+if [-f ~/.ssh/id_rsa ]; then
+  rm ~/.ssh/id_rsa
+  rm ~/.ssh/id_rsa.pub
 fi
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+
 
 # Vérifier si Terraform est installé
 if ! [ -x "$(command -v terraform)" ]; then
