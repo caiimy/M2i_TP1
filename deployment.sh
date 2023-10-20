@@ -48,7 +48,7 @@ if ! [ -f hosts ]; then
   echo "Generer le fichier host"
 
   echo "[wordpress]" >> hosts
-  echo $IP >> hosts
+  echo $IP ansible_port=22 ansible_user=admin >> hosts
   echo "[db]" >> hosts
   echo $(terraform output db_ip) >> hosts
 fi
