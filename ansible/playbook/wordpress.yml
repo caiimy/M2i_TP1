@@ -38,7 +38,7 @@
         - lamp
 
     - name: "creating sample files"
-       copy:
+      copy:
         src: "{{item}}"
         dest: "/var/www/html/{{domain}}/"
         owner: "{{owner}}"
