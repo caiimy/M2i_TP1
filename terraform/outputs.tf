@@ -3,7 +3,7 @@ output "wp_intern_ip" {
 }
 
 output "db_intern_ip" {
-  value = google_compute_instance.db.network_interface[0]
+  value = google_compute_instance.db.network_ip
 }
 
 output "wp_ip" {
