@@ -23,8 +23,8 @@ echo "Application de la création terraform ..."
 terraform apply -auto-approve
 
 # Variable IP wordpress
-IP_WP=$(terraform output wp_intern_ip)
-IP_DB=$(terraform output db_intern_ip)
+IP_WP=$(terraform output wp_extern_ip)
+IP_DB=$(terraform output db_extern_ip)
 IP_WP_EXT=$(terraform output wp_ip)
 
 # creer la clé ssh
