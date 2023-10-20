@@ -48,7 +48,7 @@ resource "google_compute_instance" "wp" {
     }
   }
   metadata = {
-    ssh-keys = "${google_service_account.service_account.email}:${file(~/.ssh/id_rsa.pub)}"
+    ssh-keys = "${google_service_account.service_account.email}:file(~/.ssh/id_rsa.pub)"
   }
 
   service_account {    
@@ -80,7 +80,13 @@ resource "google_compute_instance" "db" {
     access_config {
     }
   }
-    metadata = {
-    ssh-keys = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key_file)}"
+  metadata = {
+    ssh-keys = "${google_service_account.service_account.email}:file(~/.ssh/id_rsa.pub)"
+  }
+
+  service_account {    
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.    
+    email  = google_service_account.service_account.email
+    scopes = ["cloud-platform"]  
   }
 }
