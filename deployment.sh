@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # creer la clé ssh
-if [-f ~/.ssh/id_rsa ]; then
+if [ -f ~/.ssh/id_rsa ]; then
   rm ~/.ssh/id_rsa
   rm ~/.ssh/id_rsa.pub
 fi
