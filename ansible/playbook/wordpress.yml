@@ -7,9 +7,8 @@
         - lamp
 
     - name: "installing php"
-      shell: apt install php libapache2-mod-php -y
-      tags:
-        - lamp
+        ansible.builtin.include_role:
+          name: geerlingguy.php
 
     - name: "copying httpd.config"
       template:
