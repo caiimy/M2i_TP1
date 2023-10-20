@@ -16,7 +16,7 @@ resource "google_compute_subnetwork" "subnet" {
 
 resource "google_compute_firewall" "fw" {
   name    = "m2i-tp1-firewall"
-  network = google_compute_network.vpc_network.name
+  network = google_compute_network.vpc_network.self_link
   source_ranges = ["10.0.0.0/24"]
   allow {
     protocol = "tcp"
@@ -35,7 +35,8 @@ resource "google_compute_instance" "wp" {
     }  
   }  
   network_interface {    
-    subnetwork = google_compute_subnetwork.subnet.name  
+    network = google_compute_network.vpc_network.self_link
+    subnetwork = google_compute_subnetwork.subnet.self_link 
   }
 }
 
@@ -55,6 +56,7 @@ resource "google_compute_instance" "db" {
     }  
   }  
   network_interface {    
-    subnetwork = google_compute_subnetwork.subnet.name  
+    network = google_compute_network.vpc_network.self_link
+    subnetwork = google_compute_subnetwork.subnet.self_link 
   }
 }
