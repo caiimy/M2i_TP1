@@ -1,32 +1,36 @@
 ---
-    - name: "installing nginx"
+    - name: "installing apache"
       apt:
-        update_cache: true
-        name: nginx
+        name: httpd
         state: present
       tags:
         - lamp
 
     - name: "installing php"
-      apt:
-        name:
-          - php-mysql
-          - php-fpm
-        update_cache: true
-        state: present
+      shell: apt install php7.4 -y
       tags:
         - lamp
 
+    - name: "copying httpd.config"
+      template:
+        src: ./templates/httpd.conf.tmpl
+        dest: /etc/httpd/conf/httpd.conf
+      tags:
+        - lamp
+        - wordpress
+
     - name: "creating virtual host"
       template:
-        src: "./nginx-virtualhost.tmpl"
-        dest: "/etc/nginx/sites-available/{{domain}}"
+        src: "./templates/virtual.conf.tmpl"
+        dest: "/etc/httpd/conf.d/{{domain}}.conf"
+        owner: "{{owner}}"
+        group: "{{group}}"
       tags:
         - lamp
         - wordpress
     - name: "creating document root"
       file:
-        path: "/var/www/{{domain}}"
+        path: "/var/www/html/{{domain}}"
         state: directory
         owner: "{{owner}}"
         group: "{{group}}"
@@ -34,36 +38,40 @@
         - lamp
 
     - name: "creating sample files"
-      copy:
+       copy:
         src: "{{item}}"
-        dest: "/var/www/{{domain}}/"
+        dest: "/var/www/html/{{domain}}/"
         owner: "{{owner}}"
         group: "{{group}}"
-        with_items:
+      with_items:
         - sample.php
         - sample.html
       tags:
         - lamp
         - wordpress
 
-    - name: "link"
-      file:
-        src: "/etc/nginx/sites-available/{{domain}}"
-        dest: "/etc/nginx/sites-enabled/{{domain}}"
-        state: link
-
-    - name: "installing mysql package"
+    - name: "installing mariadb package"
       apt:
-        update_cache: true
         name:
           - mariadb-server
-          - python3-pymysql
+          - MySQL-python
         state: present
-
+      tags:
+        - lamp
+        - wordpress
+        - mariadb
+    - name: "restarting service"
+      service:
+        name: mariadb
+        state: restarted
+        enabled: true
+      tags:
+        - mariadb
+        - wordpress
+        - lamp
     - name: "updating root password"
       ignore_errors: true
       mysql_user:
-        login_unix_socket: /var/run/mysqld/mysqld.sock
         login_user: "root"
         login_password: ""
         name: "root"
@@ -107,9 +115,9 @@
         host: "%"
         priv: "{{mysql_db}}.*:ALL"
       tags:
-        - wordpress
-        - mariadb
-        - lamp
+       - wordpress
+       - mariadb
+       - lamp
 
     - name: "downloading wordpress files"
       get_url:
@@ -131,14 +139,14 @@
     - name: "copying website files"
       copy:
         src: "/tmp/wordpress/"
-        dest: "/var/www/{{domain}}"
+        dest: "/var/www/html/{{domain}}"
         owner: "{{owner}}"
         group: "{{group}}"
         remote_src: yes
     - name: "setting up wp-config"
       template:
-        src: ./wp-config.php.tmpl
-        dest: "/var/www/{{domain}}/wp-config.php"
+        src: ./templates/wp-config.php.tmpl
+        dest: "/var/www/html/{{domain}}/wp-config.php"
         owner: "{{owner}}"
         group: "{{group}}"
     - name: "restarting services"
@@ -147,11 +155,11 @@
         state: restarted
         enabled: true
       with_items:
-        - nginx
+        - httpd
         - mariadb
       tags:
-        - nginx
-        - mysql
+        - httpd
+        - mariadb
     - name: "cleanup"
       file:
         name: "{{item}}"
@@ -160,4 +168,4 @@
         - "/tmp/wordpress/"
         - "/tmp/wordpress.tar.gz"
       tags:
-         - Wordpress
+        - Wordpress
