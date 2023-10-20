@@ -1,4 +1,5 @@
-- name: "installing nginx"
+---
+    - name: "installing nginx"
       apt:
         update_cache: true
         name: nginx
