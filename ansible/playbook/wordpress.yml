@@ -1,21 +1,6 @@
-- name: Wordpress config
+- name: wordpress deployment and configuration
   hosts: wordpress
   become: true
 
   roles:
-    - role: geerlingguy.php
-      become: true
-
-    - role: geerlingguy.apache
-      become: true
-
-    - role: ~/.ansible/collections/ansible_collections/code_egg/openlitespeed_wordpress/roles/wordpress
-      become: true
-      
-      vars:
-        ansible_ssh_private_key_file: '~/.ssh/id_rsa'
-        wordpress_version: latest
-        wordpress_create_database: true
-        wordpress_database_name: wp_db
-        wordpress_database_user: wp_user
-        wordpress_database_password: secretpassword
+    - ~/workplace/M2i-TP1/ansible/roles/wordpress
