@@ -37,7 +37,7 @@ resource "google_service_account" "service_account" {
 resource "google_compute_instance" "wp" {  
   name         = "wordpress-m2i-tp1"  
   machine_type = "e2-small"  
-  zone         = "europe-west1-b"
+  zone         = "europe-west1-c"
   tags         = ["wp"]
   allow_stopping_for_update = true
   boot_disk {    
@@ -71,7 +71,7 @@ resource "google_compute_address" "wp_ip" {
 resource "google_compute_instance" "db" {  
   name         = "db-m2i-tp1"   
   machine_type = "e2-small"  
-  zone         = "europe-west1-b"  
+  zone         = "europe-west1-c"  
   tags         = ["db"]
   allow_stopping_for_update = true
   boot_disk {    
