@@ -36,6 +36,7 @@ resource "google_compute_instance" "wp" {
   machine_type = "e2-small"  
   zone         = "europe-west1-b"
   tags         = ["wp"]
+  allow_stopping_for_update = true
   boot_disk {    
     initialize_params {      
       image = "debian-cloud/debian-10"     
@@ -69,6 +70,7 @@ resource "google_compute_instance" "db" {
   machine_type = "e2-small"  
   zone         = "europe-west1-b"  
   tags         = ["db"]
+  allow_stopping_for_update = true
   boot_disk {    
     initialize_params {      
       image = "debian-cloud/debian-10"    
