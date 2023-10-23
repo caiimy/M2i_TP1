@@ -1,6 +1,6 @@
 provider "google" {
   project     = var.project_name
-  region      = var.region"
+  region      = var.region
   credentials  = var.credentials
 }
 
