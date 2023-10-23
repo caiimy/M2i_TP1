@@ -1,49 +1,54 @@
 ---
-  # Install Apache et PHP
-  - name: Install Apache
-    apt:
-      name:
-        - apache2
-        - libapache2-mod-php
-      state: present
+- name: "wordpress installation"
+  become: yes
+  hosts: wordpress
 
-  # Copie de la configuration Apache
-  - name: Copy Apache config
-    copy:
-      src: httpd.conf
-      dest: /etc/apache2/sites-available/000-default.conf
-    notify:
-      - restart apache
+  tasks:
+    # Install Apache et PHP
+    - name: Install Apache
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php
+        state: present
 
-  # Install mysql 
-  - name: Install Mysql
-    apt:
-      name: mysql-server
-      state: present
+    # Copie de la configuration Apache
+    - name: Copy Apache config
+      copy:
+        src: httpd.conf
+        dest: /etc/apache2/sites-available/000-default.conf
+      notify:
+        - restart apache
 
-  # Download & configure WordPress
-  - name: Download and unpack latest WordPress
-    unarchive:
-      src: https://wordpress.org/latest.tar.gz
-      dest: /var/www/html
-      remote_src: yes
+    # Install mysql 
+    - name: Install Mysql
+      apt:
+        name: mysql-server
+        state: present
 
-  # Permission install wordpress
-  - name: Set permissions on WordPress installation
-    file:
-      path: /var/www/html
-      owner: www-data
-      group: www-data
-      recurse: yes
+    # Download & configure WordPress
+    - name: Download and unpack latest WordPress
+      unarchive:
+        src: https://wordpress.org/latest.tar.gz
+        dest: /var/www/html
+        remote_src: yes
 
-  # Restart Apache
-  - name: restart apache
-    service:
-      name: apache2
-      state: restarted
+    # Permission install wordpress
+    - name: Set permissions on WordPress installation
+      file:
+        path: /var/www/html
+        owner: www-data
+        group: www-data
+        recurse: yes
 
-handlers:
-  - name: restart apache
-    service:
-      name: apache2
-      state: restarted
+    # Restart Apache
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
