@@ -2,13 +2,15 @@
 - name: "wordpress installation"
   become: yes
   hosts: wordpress
-  
-  tasks:
 
+  tasks:
     # Install Apache
     - name: Install Apache
       include_role:
         name: geerlingguy.apache
+
+    # Install php
+    - name: Install php
       include_role:
         name: geerlingguy.php
 
