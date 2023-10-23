@@ -13,7 +13,7 @@
 
     - name: "copying httpd.config"
       template:
-        src: ../templates/httpd.conf.tmpl
+        src: ./httpd.conf.tmpl
         dest: /etc/httpd/conf/httpd.conf
       tags:
         - lamp
@@ -21,7 +21,7 @@
 
     - name: "creating virtual host"
       template:
-        src: "../templates/virtual.conf.tmpl"
+        src: "./virtual.conf.tmpl"
         dest: "/etc/httpd/conf.d/{{domain}}.conf"
         owner: "{{owner}}"
         group: "{{group}}"
@@ -145,7 +145,7 @@
         remote_src: yes
     - name: "setting up wp-config"
       template:
-        src: ../templates/wp-config.php.tmpl
+        src: ./wp-config.php.tmpl
         dest: "/var/www/html/{{domain}}/wp-config.php"
         owner: "{{owner}}"
         group: "{{group}}"
