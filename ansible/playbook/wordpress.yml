@@ -25,10 +25,18 @@
       notify:
         - Extract WordPress Files
 
-    # Permission install wordpress
-    - name: Set permissions on WordPress installation
-      file:
-        path: /var/www/html
+  handlers:
+    - name: Extract WordPress Files
+      unarchive:
+        src: /var/www/html/wordpress.tar.gz
+        dest: /var/www/html/
         owner: www-data
         group: www-data
-        recurse: yes
+        mode: '0755'
+        remote_src: yes
+    - name: Enable WordPress Site
+      command: a2ensite wordpress
+    - name: Redémarrer Apache
+      service:
+        name: apache2
+        state: restarted
