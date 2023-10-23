@@ -7,7 +7,9 @@
     # Install Apache et PHP
     - name: Install Apache
       include_role:
-        name: geerlingguy.mysql
+        name: 
+         - geerlingguy.apache
+         - geerlingguy.php
 
     # Install mysql 
     - name: Install Mysql
