@@ -4,15 +4,15 @@
   hosts: wordpress
 
   tasks:
-    # Install Apache
-    - name: Install Apache
+    # Install php
+    - name: Install php
       include_role:
-        name: geerlingguy.apache
+        name: geerlingguy.php
 
     # Install Apache
     - name: Install Apache
       include_role:
-        name: geerlingguy.php
+        name: geerlingguy.apache
 
     # Download & configure WordPress
     - name: Download and unpack latest WordPress
