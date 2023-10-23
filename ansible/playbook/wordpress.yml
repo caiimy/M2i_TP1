@@ -8,8 +8,9 @@
     # Install Apache
     - name: Install Apache
       include_role:
-        name: geerlingguy.apache
-        name: geerlingguy.php
+        name: 
+          - geerlingguy.apache
+          - geerlingguy.php
 
     # Download & configure WordPress
     - name: Download and unpack latest WordPress
