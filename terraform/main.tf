@@ -1,10 +1,7 @@
 provider "google" {
-  project     = "future-oasis-399813"
-  region      = "europe-west1"
-  credentials  = file("../credentials.json")
-}
-
-data "google_client_openid_userinfo" "me" {
+  project     = var.project_name
+  region      = var.region"
+  credentials  = var.credentials
 }
 
 resource "google_compute_network" "vpc_network" {
@@ -18,8 +15,8 @@ resource "google_compute_subnetwork" "subnet" {
 }
 
 resource "google_compute_firewall" "fw" {
-  project     = "future-oasis-399813"
-  name    = "m2i-tp1-firewall"
+  project     = var.project_name
+  name    = "${var.project_name}-firewall"
   network = google_compute_network.vpc_network.self_link
   source_ranges = ["0.0.0.0/0"]
   allow {
@@ -35,14 +32,14 @@ resource "google_service_account" "service_account" {
 
 # Instance pour Wordpress
 resource "google_compute_instance" "wp" {  
-  name         = "wordpress-m2i-tp1"  
+  name         = "wordpress-${var.project_name}"  
   machine_type = "e2-small"  
-  zone         = "europe-west1-c"
+  zone         = "${var.region}-${var.zone}"
   tags         = ["wp"]
   allow_stopping_for_update = true
   boot_disk {    
     initialize_params {      
-      image = "debian-cloud/debian-10"     
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"     
     }  
   }  
   network_interface {    
@@ -69,14 +66,14 @@ resource "google_compute_address" "wp_ip" {
 
 # Instance pour la base de données
 resource "google_compute_instance" "db" {  
-  name         = "db-m2i-tp1"   
+  name         = "db-${var.project_name}"   
   machine_type = "e2-small"  
-  zone         = "europe-west1-c"  
+  zone         = "${var.region}-${var.zone}"  
   tags         = ["db"]
   allow_stopping_for_update = true
   boot_disk {    
     initialize_params {      
-      image = "debian-cloud/debian-10"    
+      image = "ubuntu-os-cloud/ubuntu-2004-lts"    
     }  
   }  
   network_interface {    
