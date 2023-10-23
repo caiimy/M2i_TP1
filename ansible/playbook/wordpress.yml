@@ -1,50 +1,52 @@
 ---
-- name: "wordpress installation"
-  become: yes
-  hosts: wordpress
+- hosts: wordpress
+  become: true
+
+  vars:
+    httpd_server_root: /etc/apache2
 
   tasks:
-    # Install Apache et PHP
-    - name: Install Apache
-      role: geerlingguy.mysql
+  - name: Install Apache
+    apt:
+      name: apache2
+      state: present
 
-    # Copie de la configuration Apache
-    - name: Copy Apache config
-      copy:
-        src: httpd.conf
-        dest: /etc/apache2/sites-available/000-default.conf
-      notify:
-        - restart apache
+  - name: Install PHP
+    apt:
+      name: php
+      state: present
 
-    # Install mysql 
-    - name: Install Mysql
-      apt:
-        name: mysql-server
-        state: present
+  - name: Configure Apache
+    lineinfile:
+      path: "{{ httpd_server_root }}/apache2.conf"
+      regexp: '^Listen '
+      line: Listen 80
 
-    # Download & configure WordPress
-    - name: Download and unpack latest WordPress
-      unarchive:
-        src: https://wordpress.org/latest.tar.gz
-        dest: /var/www/html
-        remote_src: yes
+  - name: Copy Apache default config
+    copy:
+      src: files/000-default.conf
+      dest: "{{ httpd_server_root }}/sites-available/000-default.conf"
+    notify:
+      - restart apache
 
-    # Permission install wordpress
-    - name: Set permissions on WordPress installation
-      file:
-        path: /var/www/html
-        owner: www-data
-        group: www-data
-        recurse: yes
+  - name: Enable Apache site
+    command: a2ensite 000-default.conf
+    notify:
+     - restart apache
 
-    # Restart Apache
-    - name: restart apache
-      service:
-        name: apache2
-        state: restarted
+  - name: Install MySQL
+    apt:
+      name: mysql-server
+      state: present
+
+  - name: Download WordPress
+    unarchive:
+      src: https://wordpress.org/latest.tar.gz
+      dest: /var/www/html
+      remote_src: yes
 
   handlers:
     - name: restart apache
-      service:
+      service: 
         name: apache2
         state: restarted
