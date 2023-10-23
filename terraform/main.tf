@@ -1,7 +1,10 @@
 provider "google" {
   project     = var.project_name
   region      = var.region
-  credentials  = var.credentials
+  credentials  = var-file.credentials
+}
+
+data "google_client_openid_userinfo" "me" {
 }
 
 resource "google_compute_network" "vpc_network" {
