@@ -15,11 +15,15 @@
         name: geerlingguy.php
 
     # Download & configure WordPress
-    - name: Download and unpack latest WordPress
-      unarchive:
-        src: https://wordpress.org/latest.tar.gz
-        dest: /var/www/html
-        remote_src: yes
+    - name: Copy WordPress Files
+      get_url:
+        url: "https://wordpress.org/latest.tar.gz"
+        dest: /var/www/html/wordpress.tar.gz
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Extract WordPress Files
 
     # Permission install wordpress
     - name: Set permissions on WordPress installation
