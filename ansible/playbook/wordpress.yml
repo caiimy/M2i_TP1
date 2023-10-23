@@ -7,7 +7,7 @@
         - lamp
 
     - name: "installing php"
-      shell: apt install php
+      shell: apt install php -y
       tags:
         - lamp
 
