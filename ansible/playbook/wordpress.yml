@@ -24,6 +24,15 @@
         mode: '0644'
       notify:
         - Extract WordPress Files
+    - name: remove default index.html
+      file:
+        path: /var/www/html/index.html
+        state: absent
+        
+    - name: Désactiver le site par défaut
+      command: a2dissite 000-default.conf
+      notify:
+        - Redémarrer Apache
 
   handlers:
     - name: Extract WordPress Files
