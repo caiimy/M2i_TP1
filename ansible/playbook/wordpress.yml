@@ -4,7 +4,7 @@
   hosts: wordpress
 
   vars_files:
-    - vars/default.yml
+    - ../vars/default.yml
 
   tasks:
     - name: Install prerequisites
