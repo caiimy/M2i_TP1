@@ -6,7 +6,3 @@ zone = "c"
 
 # Project name
 project_name = "future-oasis-399813"
-
-# Credentials file
-credentials = "../credentials.json"
-

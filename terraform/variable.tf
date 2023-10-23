@@ -14,7 +14,3 @@ variable "zone"{
 variable "project_name"{
     type = string
 }
-
-variable "credentials"{
-    type = string
-}

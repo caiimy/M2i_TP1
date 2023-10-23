@@ -1,7 +1,7 @@
 provider "google" {
   project     = var.project_name
   region      = var.region
-  credentials  = var-file.credentials
+  credentials  = "../credentials.json"
 }
 
 data "google_client_openid_userinfo" "me" {
