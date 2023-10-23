@@ -59,12 +59,12 @@ fi
 cd ..
 
 # Installer les roles geerlingguy avec ansible galaxy
-ansible-galaxy install geerlingguy.php
-ansible-galaxy install geerlingguy.apache
-ansible-galaxy install geerlingguy.mysql
+# ansible-galaxy install geerlingguy.php
+# ansible-galaxy install geerlingguy.apache
+# ansible-galaxy install geerlingguy.mysql
 
 # Appliquer les playbooks Ansible
-ansible-playbook -i inventories/hosts playbook/mariadb.yml
+ansible-playbook -i inventories/hosts playbook/database.yml
 ansible-playbook -i inventories/hosts playbook/wordpress.yml
 
 # Vérifier le fonctionnement
