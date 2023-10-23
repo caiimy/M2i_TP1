@@ -14,12 +14,6 @@
       include_role:
         name: geerlingguy.php
 
-    # Install mysql 
-    - name: Install Mysql
-      apt:
-        name: mysql-server
-        state: present
-
     # Download & configure WordPress
     - name: Download and unpack latest WordPress
       unarchive:
@@ -34,12 +28,6 @@
         owner: www-data
         group: www-data
         recurse: yes
-
-    # Restart Apache
-    - name: restart apache
-      service:
-        name: apache2
-        state: restarted
 
   handlers:
     - name: restart apache
