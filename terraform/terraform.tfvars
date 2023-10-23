@@ -8,5 +8,5 @@ zone = "c"
 project_name = "future-oasis-399813"
 
 # Credentials file
-credentials = file("../../credentials.json")
+credentials = "../credentials.json"
 
