@@ -3,6 +3,8 @@
   become: yes
   hosts: wordpress
   
+  tasks:
+
     # Install Apache
     - name: Install Apache
       include_role:
