@@ -61,7 +61,6 @@ cd ..
 sed -i "s/http_host: .*/http_host: $IP_WP_EXT/" vars/default.yml
 sed -i "s/http_conf: .*/http_conf: "$IP_WP_EXT_CONF"/" vars/default.yml
 
-
 # Appliquer les playbooks Ansible
 ansible-playbook -i inventories/hosts playbook/wordpress.yml
 ansible-playbook -i inventories/hosts playbook/database.yml
