@@ -33,6 +33,7 @@ terraform apply -auto-approve
 IP_WP=$(terraform output wp_extern_ip)
 IP_DB=$(terraform output db_extern_ip)
 IP_WP_EXT=$(terraform output wp_ip)
+IP_WP_EXT_CONF=$IP_WP_EXT.conf
 
 # Vérifier si Ansible est installé
 if ! [ -x "$(command -v ansible)" ]; then
@@ -63,7 +64,7 @@ cd ..
 # ansible-galaxy install geerlingguy.apache
 # ansible-galaxy install geerlingguy.mysql
 sed -i "s/http_host: .*/http_host: $IP_WP_EXT/" vars/default.yml
-sed -i "s/http_conf: .*/http_conf: '$IP_WP_EXT.conf'/" vars/default.yml
+sed -i "s/http_conf: .*/http_conf: $IP_WP_EXT_CONF/" vars/default.yml
 
 
 # Appliquer les playbooks Ansible
