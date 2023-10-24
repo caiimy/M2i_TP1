@@ -1,8 +1,8 @@
 # Account region
-region = "europe-west1"
+region = "LA REGION"
 
 #Account zone
-zone = "c"
+zone = "LA ZONE"
 
 # Project name
-project_name = "future-oasis-399813"
+project_name = "NOM DE VOTRE PROJET"
