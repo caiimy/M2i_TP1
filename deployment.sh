@@ -1,14 +1,12 @@
 #!/bin/bash
-echo "Je suis la !!!!!!"
+
 # creer la clé ssh
 if [ -f ~/.ssh/id_rsa ]; then
   rm ~/.ssh/id_rsa
   rm ~/.ssh/id_rsa.pub
-  echo "clé supprimée"
 fi
-echo "Création de la nouvelle clé"
-ssh-keygen -t rsa -f ~/.ssh/id_rsa
-
+echo "Création de la nouvelle clé ssh"
+ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 # Vérifier si Terraform est installé
 if ! [ -x "$(command -v terraform)" ]; then
@@ -59,10 +57,7 @@ if ! [ -f hosts ]; then
 fi
 cd ..
 
-# Installer les roles geerlingguy avec ansible galaxy
-# ansible-galaxy install geerlingguy.php
-# ansible-galaxy install geerlingguy.apache
-# ansible-galaxy install geerlingguy.mysql
+# Appliquer l'adresse IP host dans le fichier de variable
 sed -i "s/http_host: .*/http_host: $IP_WP_EXT/" vars/default.yml
 sed -i "s/http_conf: .*/http_conf: "$IP_WP_EXT_CONF"/" vars/default.yml
 
