@@ -63,7 +63,7 @@ cd ..
 # ansible-galaxy install geerlingguy.apache
 # ansible-galaxy install geerlingguy.mysql
 sed -i "s/http_host: .*/http_host: $IP_WP_EXT/" vars/default.yml
-sed -i "s/http_conf: .*/"http_conf: $IP_WP_EXT.conf"/" vars/default.yml
+sed -i "s/http_conf: .*/http_conf: "$IP_WP_EXT.conf"/" vars/default.yml
 
 
 # Appliquer les playbooks Ansible
