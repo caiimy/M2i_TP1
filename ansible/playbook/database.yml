@@ -21,7 +21,7 @@
         name: mysql
         state: started
         enabled: yes
-        
+
   # MySQL Configuration
     - name: Set the root password
       mysql_user:
@@ -65,10 +65,9 @@
         login_password: "{{ mysql_root_password }}"
       tags: [ mysql ]
 
-    - name: Enable remote login to mariadb
+    - name: Enable remote login to mysql
       lineinfile:
          path: /etc/mysql/mysql.conf.d/mysql.cnf
          regexp: '^bind-address\s*='
          line: 'bind-address = 0.0.0.0'
-      notify:
-         - Restart mysql
+      notify: Restart mysql
