@@ -13,7 +13,7 @@
  
     - name: Install LAMP Packages
       apt: name={{ item }} update_cache=yes state=latest
-      loop: [ 'python2.7', 'python3-pymysql','apache2', 'mysql-server', 'php', 'php-mysql', 'libapache2-mod-php' ]
+      loop: [ 'python3-pymysql','apache2', 'mysql-server', 'php', 'php-mysql', 'libapache2-mod-php' ]
       tags: [ system ]
  
     - name: Install PHP Extensions
