@@ -64,8 +64,8 @@ cd ..
 # ansible-galaxy install geerlingguy.mysql
 
 # Appliquer les playbooks Ansible
-ansible-playbook -i inventories/hosts playbook/database.yml
 ansible-playbook -i inventories/hosts playbook/wordpress.yml
+ansible-playbook -i inventories/hosts playbook/database.yml
 
 # Vérifier le fonctionnement
 if curl -s "$IP_WP_EXT" | grep "WordPress" > /dev/null; then
