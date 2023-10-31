@@ -3,14 +3,14 @@
 ## Provided files
 ### ansible
 Ce dossier regroupe les differents fichier necessaire au deployment des playbook ansible.
-- 'files'
+- 'files':
 'apache.conf.j2' est la configuration principale du serveur Apache. il contient les instuctions données à la config
 'wp-config.php.j2' est la configuration de la base wordpress. Il contient la configuration de MYSQL, prefix Table, secret keys ainsi que le ABSPATH.
 
-- 'playbook'
+- 'playbook':
 Ce fichier contient deux playbook ( 'database.yml & 'wordpress.yml' ) ansible avec les taches necessaires pour le deployment d'un wordpress ainsi que sa base MYSQL
 
-- 'vars'
+- 'vars':
 'default.yml' contient les variables definies pour notre installation wordpress
 ### terraform
 - 'main.tf' est le fichier de deploiement, il creera sur le compte GCP les VM, VPC, sous reseau ainsi que les regles firewall.
